@@ -25,11 +25,11 @@ const promises = [
 // Resolve todas as promessas e retorna depois os valores
 // Muito útil quando só se deve retornar se todas as Promises forem válidas
 
-// Promise.all(promises)
-//     .then(valor => {
-//         console.log(valor)
-//     })
-//     .catch(err => { console.log(err) })
+Promise.all(promises)
+    .then(valor => {
+        console.log(valor)
+    })
+    .catch(err => { console.log(err) })
 
 //============================================
 
