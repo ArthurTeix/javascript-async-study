@@ -1,0 +1,15 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:
+    darkseagreen;
+    margin: auto;
+}
+.container {
+    background-color: cadetblue;
+    margin-top: 250px;
+    padding: 100px;
+    border: 1px solid #000000;
+    border-radius: 20px;
+}
