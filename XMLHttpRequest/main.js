@@ -1,25 +1,26 @@
 const request = obj => {
-    const xhr = new XMLHttpRequest() // o nome da constante 'xhr' é uma nomenclatura padrão da comunidade, que representa uma abreviação para XMLHttpRequest
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest() // o nome da constante 'xhr' é uma nomenclatura padrão da comunidade, que representa uma abreviação para XMLHttpRequest
     
-    // xhr.open('Método http', 'URL',   TRUE -> Assíncrono || FALSE -> Síncrono)
-    xhr.open(obj.method, obj.url, true)
+        // xhr.open('Método http', 'URL',   TRUE -> Assíncrono || FALSE -> Síncrono)
+        xhr.open(obj.method, obj.url, true)
 
-    // xhr.send() <- é obrigatório em todos os métodos, incluindo GET. A diferença é que no POST você passa o corpo da requisição dentro dele
+        // xhr.send() <- é obrigatório em todos os métodos, incluindo GET. A diferença é que no POST você passa o corpo da requisição dentro dele
+        xhr.send()
 
-    // GET:  xhr.send()         → sem corpo, dados vão na URL
-    // POST: xhr.send(dados)    → dados vão no corpo da requisição
+        // GET:  xhr.send()         → sem corpo, dados vão na URL
+        // POST: xhr.send(dados)    → dados vão no corpo da requisição
 
-    xhr.addEventListener('load', () => {
-        if (xhr.status >= 200 && xhr.status < 300){ // os códigos http entre 200 e 300 representam sucesso, ou seja, a requisição ocorreu bem
+        xhr.addEventListener('load', () => {
+            if (xhr.status >= 200 && xhr.status < 300){ // os códigos http entre 200 e 300 representam sucesso, ou seja, a requisição ocorreu bem
 
-            obj.success(xhr.responseText) // tudo que buscarmos num documento 
+                resolve(xhr.responseText) // tudo que buscarmos num documento 
 
-        } else {
-            obj.error(xhr.statusText) // caso a requisição GET não funcione, envio qual foi o status do erro em texto
-        }
-    })
-
-    xhr.send()
+            } else {
+                reject(xhr.statusText) // caso a requisição GET não funcione, envio qual foi o status do erro em texto
+            }
+        })
+    }) 
 }
 
 document.addEventListener('click', e => {
@@ -35,17 +36,12 @@ document.addEventListener('click', e => {
 function carregaPag(el) {
     const href = el.getAttribute('href') // capturando (get) o atributo
 
-    request({
+    request({ // Objeto a ser passado na função request criada com o construtor XHR
         method: 'GET',
         url: href,
-
-        success(response) { // função criado lá no load do xhr
-            carregaResult(response)
-        },
-        error(errorText) { // função criado lá no load do xhr
-            console.log(errorText)
-        }
-    })
+    }).then(response => {
+        carregaResult(response)
+    }).catch(err => console.log(err))
 }
 
 function carregaResult(response) { // função que vai exibir minha página na minha div.resultado
