@@ -21,19 +21,19 @@ function esperaAi(msg, tempo) {
 
 // encadeamento de then (um so acontece apos o outro)
 
-// esperaAi('Fase 1', random())
-//     .then(fase1 => { 
-//         console.log (fase1)
-//         return esperaAi('Fase 2', random())
-//     })
-//     .then(fase2 => {
-//         console.log(fase2)
-//         return esperaAi('Fase 3', random())
-//     })
-//     .then(fase3 => {
-//         console.log(fase3)
-//     })
-//     .catch(err => console.log(err))
+esperaAi('Fase 1', random())
+    .then(fase1 => { 
+        console.log (fase1)
+        return esperaAi('Fase 2', random())
+    })
+    .then(fase2 => {
+        console.log(fase2)
+        return esperaAi('Fase 3', random())
+    })
+    .then(fase3 => {
+        console.log(fase3)
+    })
+    .catch(err => console.log(err))
 
 
 // async - serve para marcar uma função como assíncrona, ou seja, ela pode conter código assíncrono dentro dela. 
