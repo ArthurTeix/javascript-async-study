@@ -33,15 +33,21 @@ document.addEventListener('click', e => {
     }
 })
 
-function carregaPag(el) {
+async function carregaPag(el) {
     const href = el.getAttribute('href') // capturando (get) o atributo
 
-    request({ // Objeto a ser passado na função request criada com o construtor XHR
+    const objConfig = {
+        // Objeto a ser passado na função request criada com o construtor XHR
         method: 'GET',
         url: href,
-    }).then(response => {
+    }
+
+    try {
+        const response = await request(objConfig)
         carregaResult(response)
-    }).catch(err => console.log(err))
+    } catch(err) {
+        console.log(err)
+    }
 }
 
 function carregaResult(response) { // função que vai exibir minha página na minha div.resultado
